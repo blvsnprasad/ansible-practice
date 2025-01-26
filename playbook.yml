@@ -1,0 +1,22 @@
+---
+- name: play1
+  hosts: server
+  become: yes
+  connection: local
+  vars_files:
+    - files/secrets.yml 
+    - defaults/main.yml
+    - vars/main.yml
+  tasks:
+    - name: play1 copy file task
+      import_tasks: tasks/main.yml
+
+    - name: play2 write file task
+      include_tasks: tasks/main.yml
+
+    - name: play3 write file task
+      include_tasks: tasks/subtask.yml
+
+  handlers:
+    - name: handlers
+      import_tasks: handlers/main.yml

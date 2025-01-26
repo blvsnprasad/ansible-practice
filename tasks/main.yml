@@ -1,0 +1,33 @@
+- block: 
+    - name: copy file task 
+      copy:
+        src: ../files/file1.txt
+        dest: /mnt/c/Users/Nagendra.Prasad/ansible-deployment/fileCopy/
+        mode: '0644'
+  when: task == 'copy'
+
+- block:
+    - name: set current date
+      set_fact:
+        current_datetime: "{{ lookup('pipe', 'date +%Y-%m-%d\\ %H:%M:%S') }}"
+
+
+- block: 
+    - name: write file using shell lineinfile task
+      lineinfile: 
+        path: /mnt/c/Users/Nagendra.Prasad/ansible-deployment/fileCopy/file1.txt
+        line: "line added by lineinfile shell {{ current_datetime }}"
+        create: yes
+    
+    - name: write file using shell blockinfile task
+      blockinfile:
+        path: /mnt/c/Users/Nagendra.Prasad/ansible-deployment/fileCopy/file2.txt
+        block: |
+          this is block of text
+          added using 
+          blockinfile shell {{ current_datetime }}
+        create: yes
+    
+    - name: write file using shell echo task
+      shell: "echo 'this is added by echo shell {{ current_datetime }}' >> /mnt/c/Users/Nagendra.Prasad/ansible-deployment/fileCopy/file3.txt"
+  when: task == 'write'

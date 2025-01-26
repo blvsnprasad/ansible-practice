@@ -1,0 +1,8 @@
+- name: handler1
+  shell: "echo 'handler1 notify recieved {{ current_datetime }}' >> /mnt/c/Users/Nagendra.Prasad/ansible-deployment/fileCopy/file4.txt"
+
+- name: handler2
+  shell: "{{ item }}"
+  with_items:
+    - "echo 'handler2 notify received {{ current_datetime }}' >> /mnt/c/Users/Nagendra.Prasad/ansible-deployment/fileCopy/file4.txt"
+    - "echo 'handler2 notify received {{ current_datetime }}' >> /mnt/c/Users/Nagendra.Prasad/ansible-deployment/fileCopy/file5.txt"

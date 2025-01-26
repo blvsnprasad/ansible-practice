@@ -1,0 +1,7 @@
+- block:
+    - name: write in file4
+      shell: "echo 'hi this is subtask server name - {{ serverName }}' >> /mnt/c/Users/Nagendra.Prasad/ansible-deployment/fileCopy/file4.txt"
+      notify: 
+        - handler1
+        - handler2
+  when: task == 'write'
